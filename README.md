@@ -4,3 +4,4 @@ Frontend Js Prepration
 2. Throttle
 3. Array Methods Polyfill:> forEach
 4. Currying
+5. Flatten, deepFlatten
