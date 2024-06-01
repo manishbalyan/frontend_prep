@@ -14,8 +14,8 @@ function flattern(arr){
 
 const nestedArray = [1, [2, [3, [4, [5]]]], 6];
 const flatArray = flattern(nestedArray);
-
 console.log(flatArray);
+
 
 function deepFlatten(input){
     let result = [];
