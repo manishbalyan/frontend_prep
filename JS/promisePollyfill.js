@@ -108,3 +108,36 @@ promiseAny([promise7,promise8,promise9]).then((value)=>{
 }).catch((error)=>{
     console.log('Errors:', error.errors)
 })
+
+
+function promiseRace(promises){
+    return new Promise((resolve,reject)=>{
+        if(!Array.isArray(promises)){
+            reject(new TypeError('arguments must be an array'));
+        }
+        promises.forEach((promise)=>{
+            Promise.resolve(promise).then((value)=>{
+                resolve(value);
+            }).catch((error)=>{
+                reject(error);
+            })
+        })
+        
+    })
+}
+
+
+const promise10 = new Promise((resolve, reject) => setTimeout(resolve, 0, 'one'));
+const promise11 = new Promise((resolve, reject) => setTimeout(resolve, 100, 'two'));
+const promise12 = new Promise((resolve, reject) => setTimeout(reject, 200, 'three'));
+
+promiseRace([promise10, promise11, promise12])
+  .then((value) => {
+    console.log('Resolved:', value); 
+  })
+  .catch((error) => {
+    console.error('Rejected:', error);
+  });
+
+
+  

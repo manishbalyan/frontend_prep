@@ -7,4 +7,4 @@ Frontend Js Prepration
 5. Flatten, deepFlatten
 6. Pipe
 7. Auto Retry Promises 
-8. Promise Pollyfill: all, allSetteled, any
+8. Promise Pollyfill: all, allSetteled, any, race, 
