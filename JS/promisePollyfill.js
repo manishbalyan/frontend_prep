@@ -140,4 +140,29 @@ promiseRace([promise10, promise11, promise12])
   });
 
 
+
+
+function promiseFinally(callback){
+    if(typeof callback !== 'function'){
+        return this.then(callback, callback);
+    }
+    return this.then(
+        value => Promise.resolve(callback()).then(()=>value),
+        reason => Promise.resolve.reject(callback()).then(()=> reason)
+    )
+}
+
+const promise13 = new Promise((resolve, reject) => {
+    setTimeout(() => resolve('Success'), 1000);
+  });
   
+  promise13
+    .then(value => {
+      console.log('Resolved:', value);
+    })
+    .catch(error => {
+      console.error('Rejected:', error);
+    })
+    .finally(() => {
+      console.log('Finally called');
+    });
