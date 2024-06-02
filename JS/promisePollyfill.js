@@ -71,3 +71,40 @@ const promise6 = 42;
 Promise.allSettled([promise4, promise5, promise6]).then(results => {
   console.log(results);
 });
+
+
+
+function promiseAny(promises){
+    return new Promise((resolve,reject)=>{
+        if(!Array.isArray(promises)){
+            reject(new TypeError('arguments must be an array'));
+        }
+        let errors = [];
+        let rejectCount = 0;
+        let promiseLength = promises.length;
+        if(promiseLength===0){
+            reject(new AggregateError([],'All promises rejected'))
+        }
+        promises.forEach((promise,index) => {
+            Promise.resolve(promise).then((value)=>{
+                resolve(value);
+            }).catch((error)=>{
+                errors[index] = error;
+                rejectCount++;
+                if(rejectCount === promiseLength){
+                    reject(new AggregateError(errors, "All Promises Rejected"));
+                }
+            })
+        });
+    })
+}
+
+const promise7 = Promise.reject('Error 1');
+const promise8 = new Promise((resolve) => setTimeout(resolve, 100, 'Success 2'));
+const promise9 = new Promise((resolve) => setTimeout(resolve, 200, 'Success 3'));
+
+promiseAny([promise7,promise8,promise9]).then((value)=>{
+    console.log('Resolved',value);
+}).catch((error)=>{
+    console.log('Errors:', error.errors)
+})
