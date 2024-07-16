@@ -8,3 +8,4 @@ Frontend Js Prepration
 6. Pipe
 7. Auto Retry Promises 
 8. Promise Pollyfill: all, allSetteled, any, race, finally
+9. CustomeSetTimeOut
