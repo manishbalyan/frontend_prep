@@ -59,3 +59,36 @@ const nestedStructure = [
   const flatArrayVal = deepFlatten(nestedStructure);
   
   console.log(flatArrayVal);
+
+
+  function flattenObject(obj, parentKey = '', result = {}) {
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            let newKey = parentKey ? `${parentKey}.${key}` : key;
+            if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+                flattenObject(obj[key], newKey, result);
+            } else if (Array.isArray(obj[key])) {
+                obj[key].forEach((item, index) => {
+                    if (typeof item === 'object' && item !== null) {
+                        flattenObject(item, `${newKey}.${index}`, result);
+                    } else {
+                        result[`${newKey}.${index}`] = item;
+                    }
+                });
+            } else {
+                result[newKey] = obj[key];
+            }
+        }
+    }
+    return result;
+}
+
+const obj = {
+    a: { b: 'c' },
+    d: [{ e: 'f' }, 3],
+};
+
+const result = flattenObject(obj);
+console.log(result);
+
+// result = { 'a.b': 'c', 'd.0.e': 'f', 'd.1': 3 };

@@ -8,6 +8,6 @@ const addition = (x) => x + 1;
 const multiplication = (x) => x * 2;
 const subtract = (x) => x - 3;
 
-const pipedFunction = pipe(addition, multiply, subtract);
+const pipedFunction = pipe(addition, multiplication, subtract);
 
 console.log(pipedFunction(5));
