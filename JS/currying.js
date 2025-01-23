@@ -10,6 +10,12 @@ function curry(fn) {
     };
 }
 
+function myCurry(a){
+  return function(b){
+    if(b) return myCurry(a+b);
+    return a;
+  }
+}
 const _ = Symbol('placeholder');
 
 function curryWithPlaceholder(fn) {
